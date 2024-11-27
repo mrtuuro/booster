@@ -9,11 +9,15 @@ type Config struct {
     ProjectName string
     Language    string
     Domain      string
+    Version string
 }
+
+const VERSION="v1.0.0"
 
 func NewConfig() *Config {
     cfg := &Config{}
     cfg.Init()
+    cfg.Version = VERSION
     return cfg
 }
 
