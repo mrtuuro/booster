@@ -71,7 +71,6 @@ func (l *LangGo) CreateDir() error {
     }
 
     dirName := fmt.Sprintf("%s/%s", wd, l.ProjectName)
-    fmt.Printf("wd: %s\n", dirName)
     err = os.Mkdir(dirName, 0755)
     if err != nil {
         return fmt.Errorf("creating directory: %v", err)
