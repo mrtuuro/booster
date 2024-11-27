@@ -1,15 +1,20 @@
 package main
 
 import (
-    "fmt"
+    "log"
 
+    "github.com/mrtuuro/booster/cmd"
     "github.com/mrtuuro/booster/config"
 )
 
 func main() {
 
     cfg := config.NewConfig()
-    fmt.Printf("projectName: %s\nlanguage: %s\ndomain: %s\n", cfg.ProjectName, cfg.Language, cfg.Domain)
+    l := cmd.New(cfg)
 
-    fmt.Println("We gonna boost you")
+    err := l.CreateDir()
+    if err != nil {
+        log.Fatal(err)
+    }
+    return
 }
