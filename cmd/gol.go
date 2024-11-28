@@ -4,23 +4,12 @@ import (
     "fmt"
     "os"
     "os/exec"
-
-    "github.com/mrtuuro/booster/config"
 )
 
 type LangGo struct {
     Version     string
     ProjectName string
     Domain      string
-}
-
-func New(cfg *config.Config) *LangGo {
-    lang := &LangGo{
-        Version:     cfg.Version,
-        ProjectName: cfg.ProjectName,
-        Domain:      cfg.Domain,
-    }
-    return lang
 }
 
 func (l *LangGo) makeFileWrite() string {
@@ -44,7 +33,7 @@ func (l *LangGo) CreateMakeFile(path string) error {
     return nil
 }
 
-func(l *LangGo) CreateMainFile(path string) error {
+func (l *LangGo) CreateMainFile(path string) error {
     mainFile, err := os.OpenFile("main.go", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0744)
     if err != nil {
         return err
@@ -59,12 +48,12 @@ func(l *LangGo) CreateMainFile(path string) error {
     return nil
 }
 
-func(l *LangGo) mainFileWrite() string {
+func (l *LangGo) mainFileWrite() string {
     s := fmt.Sprintf("package main\nimport (\n\t\"fmt\"\n)\n\nfunc main(){\n\tfmt.Println(\"Hello from %s\")\n}\n", l.ProjectName)
     return s
 }
 
-func (l *LangGo) CreateDir() error {
+func (l *LangGo) Run() error {
     wd, err := os.Getwd()
     if err != nil {
         return fmt.Errorf("retrieving working directory: %v", err)
@@ -85,7 +74,6 @@ func (l *LangGo) CreateDir() error {
     if err != nil {
         return fmt.Errorf("creating makefile: %v", err)
     }
-
 
     command := exec.Command("go", "mod", "init", l.Domain)
     if err := command.Run(); err != nil {

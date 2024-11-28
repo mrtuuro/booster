@@ -2,7 +2,7 @@
 
 BOOSTER=booster
 NAME=test
-LANG=go
+LANG=c
 DOMAIN=github.com/mrtuuro/test
 
 build:
